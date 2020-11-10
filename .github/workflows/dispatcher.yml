@@ -1,0 +1,21 @@
+name: Dispatcher workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        default: 'World'
+        required: true
+
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: dev-actions/workflow-dispatch@v1
+      with:
+        token: '${{ secrets.DISPATCHER_TOKEN }}'
+        repository: '${{ github.repository }}'
+        workflow-id: 'listener.yml'
+        ref: 'main'
+        inputs: '"name":"World"'
